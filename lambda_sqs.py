@@ -10,7 +10,8 @@ bedrock_client = boto3.client("bedrock-runtime", region_name="us-east-1")
 s3_client = boto3.client("s3")
 
 MODEL_ID = "amazon.titan-image-generator-v1"
-BUCKET_NAME =  os.environ["BUCKET_NAME"]
+BUCKET_NAME = os.environ["BUCKET_NAME"]
+
 
 def lambda_handler(event, context):
     # Loop through all SQS records in the event
@@ -35,8 +36,7 @@ def lambda_handler(event, context):
 
         # Invoke the model
         response = bedrock_client.invoke_model(
-            modelId=MODEL_ID,
-            body=json.dumps(native_request)
+            modelId=MODEL_ID, body=json.dumps(native_request)
         )
 
         model_response = json.loads(response["body"].read())
@@ -46,7 +46,4 @@ def lambda_handler(event, context):
         # Upload the image to S3
         s3_client.put_object(Bucket=BUCKET_NAME, Key=s3_image_path, Body=image_data)
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps("")
-    }
+    return {"statusCode": 200, "body": json.dumps("")}
