@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master 
+    paths:
+      - 'task1/sam_lambda/**'
 
 jobs:
   deploy:
