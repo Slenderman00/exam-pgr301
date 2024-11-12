@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+ couch-explorers
+ Sample SAM Template for couch-explorers
+Globals:
+  Function:
+    Timeout: 30
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  GenerateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment:
+        Variables:
+          BUCKET_NAME: pgr301-couch-explorers
+          IMAGE_PATH: '63'
+      CodeUri: generate/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      Events:
+        GenerateApi:
+          Type: Api
+          Properties:
+            Path: /generate
+            Method: post
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaVPCAccessExecutionRole
+        - !Ref BedrockFullAccessPolicy
+        - !Ref S3FullAccessPolicy
+        
+  BedrockFullAccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'bedrock:*'
+            Resource: '*'
+            
+  S3FullAccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 's3:*'
+            Resource: '*'
+            
+Outputs:
+  GenerateApi:
+    Description: API Gateway endpoint URL for Prod stage for Generate function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/generate/"
+  GenerateFunction:
+    Description: Generate Lambda Function ARN
+    Value: !GetAtt GenerateFunction.Arn
+  GenerateFunctionIamRole:
+    Description: Implicit IAM Role created for Generate function
+    Value: !GetAtt GenerateFunctionRole.Arn

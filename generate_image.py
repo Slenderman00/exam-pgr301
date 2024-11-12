@@ -10,7 +10,7 @@ s3_client = boto3.client("s3")
 
 # Define the model ID and S3 bucket name (replace with your actual bucket name)
 model_id = "amazon.titan-image-generator-v1"
-bucket_name = "pgr301-couch-explorers"
+bucket_name = "pgr301-couch-explorers-johe037"
 
 # Frank; Important; Change this prompt to something else before the presentation with the investors!
 prompt = "Investors, with circus hats, giving money to developers with large smiles"
@@ -40,3 +40,4 @@ image_data = base64.b64decode(base64_image_data)
 
 # Upload the decoded image data to S3
 s3_client.put_object(Bucket=bucket_name, Key=s3_image_path, Body=image_data)
+
