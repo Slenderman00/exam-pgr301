@@ -81,7 +81,7 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps(
             {
-                "image": generate_image(event["body"]),
+                "image2": generate_image(event["body"]),
             }
         ),
     }
