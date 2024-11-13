@@ -64,16 +64,23 @@ jobs:
           TF_VAR_bucket_name: "pgr301-couch-explorers"
         working-directory: task2/infra
 
-      - name: Archive Terraform Plan
+      - name: Archive Terraform Plan Binary
         uses: actions/upload-artifact@v3
         with:
           name: terraform-plan-${{ github.sha }}
-          path: tfplan
+          path: task2/terraform_plan/tfplan.binary
+          retention-days: 5
+
+      - name: Archive Terraform Plan JSON
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-plan-${{ github.sha }}
+          path: task2/terraform_plan/tfplan.json
           retention-days: 5
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve task2/terraform_plan/tfplan.binary
         env:
           AWS_REGION: "eu-west-1"
         working-directory: task2/infra
