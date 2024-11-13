@@ -41,12 +41,15 @@ jobs:
         run: terraform init
         env:
           AWS_REGION: "eu-west-1"
+        working-directory: task2/infra
 
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: task2/infra
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: task2/infra
 
       - name: Terraform Plan
         run: terraform plan -input=false -out=tfplan
@@ -55,6 +58,7 @@ jobs:
           TF_VAR_environment: "dev"
           TF_VAR_prefix: "63"
           TF_VAR_bucket_name: "pgr301-couch-explorers"
+        working-directory: task2/infra
 
       - name: Archive Terraform Plan
         uses: actions/upload-artifact@v3
@@ -62,12 +66,14 @@ jobs:
           name: terraform-plan-${{ github.sha }}
           path: tfplan
           retention-days: 5
+        working-directory: task2/infra
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
         run: terraform apply -auto-approve tfplan
         env:
           AWS_REGION: "eu-west-1"
+        working-directory: task2/infra
 
       - name: Job Summary
         run: |
