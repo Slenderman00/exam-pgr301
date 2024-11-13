@@ -4,7 +4,7 @@ on:
     branches:
       - '**'
     paths:
-      - 'task2/infra'
+      - 'task2/infra/**'
 
 jobs:
   terraform:
