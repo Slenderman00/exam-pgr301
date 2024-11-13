@@ -49,7 +49,10 @@ jobs:
         working-directory: task2/infra
 
       - name: Terraform Plan
-        run: terraform plan -input=false -out=tfplan
+        run: |
+          terraform plan -input=false -no-color -out=task2/terraform_plan/tfplan.binary
+          terraform show -json task2/terraform_plan/tfplan.binary > task2/terraform_plan/tfplan.json
+          cat task2/terraform_plan/tfplan.json | jq '.' > task2/terraform_plan/formatted_plan.json
         env:
           AWS_REGION: "eu-west-1"
           TF_VAR_environment: "dev"
