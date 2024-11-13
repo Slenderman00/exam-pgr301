@@ -48,32 +48,62 @@ jobs:
         run: terraform validate
         working-directory: task2/infra
 
+      - name: Create terraform_plan Directory
+        run: |
+          mkdir -p task2/terraform_plan
+
       - name: Terraform Plan
-        run: terraform plan -input=false -out=tfplan
+        run: |
+          if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
+            echo "Running plan for production environment"
+            export TF_VAR_environment="prod"
+          else
+            echo "Running plan for development environment"
+            export TF_VAR_environment="dev"
+          fi
+          terraform plan -input=false -no-color -out=../terraform_plan/tfplan.binary
+          terraform show -json ../terraform_plan/tfplan.binary > ../terraform_plan/tfplan.json
+          cat ../terraform_plan/tfplan.json | jq '.' > ../terraform_plan/formatted_plan.json
         env:
           AWS_REGION: "eu-west-1"
-          TF_VAR_environment: "dev"
           TF_VAR_prefix: "63"
           TF_VAR_bucket_name: "pgr301-couch-explorers"
         working-directory: task2/infra
 
-      - name: Archive Terraform Plan
-        uses: actions/upload-artifact@v3
+      - name: Archive Terraform Plan Binary
+        uses: actions/upload-artifact@v4
+        id: upload-plan-binary
         with:
-          name: terraform-plan-${{ github.sha }}
-          path: tfplan
+          name: terraform-plan-binary
+          path: task2/terraform_plan/tfplan.binary
+          retention-days: 5
+
+      - name: Archive Terraform Plan JSON
+        uses: actions/upload-artifact@v4
+        id: upload-plan-json
+        with:
+          name: terraform-plan-json
+          path: task2/terraform_plan/tfplan.json
           retention-days: 5
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve task2/terraform_plan/tfplan.binary
         env:
           AWS_REGION: "eu-west-1"
         working-directory: task2/infra
 
       - name: Job Summary
         run: |
+          BINARY_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts/${{ steps.upload-plan-binary.outputs.artifact-id }}"
+          JSON_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts/${{ steps.upload-plan-json.outputs.artifact-id }}"
+          WORKFLOW_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           echo "## Summary" >> $GITHUB_STEP_SUMMARY
+          if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
+            echo Enviroment: production >> $GITHUB_STEP_SUMMARY
+          else
+            echo Enviroment: development >> $GITHUB_STEP_SUMMARY
+          fi
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
@@ -84,3 +114,7 @@ jobs:
             echo "❌ Plan applied" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 [Download Binary Plan](${BINARY_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📄 [Download JSON Plan](${JSON_URL})" >> $GITHUB_STEP_SUMMARY
