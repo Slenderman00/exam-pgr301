@@ -19,3 +19,13 @@
     The following are two successful action runs: 
         - [dev branch](https://github.com/Slenderman00/exam-pgr301/actions/runs/11824576347)
         - [main branch](https://github.com/Slenderman00/exam-pgr301/actions/runs/11824548283)
+- Task 3
+    - Subtask A\
+        The dockerfile can be found in the task3 directory.
+    - Subtask B\
+        [![Docker Build and Push](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml/badge.svg)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml)\
+        The Dockerhub repository can be found [here.](https://hub.docker.com/repository/docker/slenderman00/testsqs)\
+        All images are tagged with the relevant git commit hash both the short and full version.\
+        Semantic versioning was considered, but due to the amount of different projects in the same repository it would quickly get confusing
+        with multiple sets of versions for the same repository.\
+        With images tagged with hashes making it easy to check out the relevant commit.
