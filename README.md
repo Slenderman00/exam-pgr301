@@ -15,4 +15,7 @@
         ```
     - Subtask B\
     [![Deploy Terraform Infrastructure](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml/badge.svg?branch=master)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml)\
-    The terraform plan can be found in the action summary in the form of two artifacts.
+    The terraform plan can be found in the action summary in the form of two artifacts.\
+    The following are two successful action runs: 
+        - [dev branch](https://github.com/Slenderman00/exam-pgr301/actions/runs/11822612241)
+        - [main branch](https://github.com/Slenderman00/exam-pgr301/actions/runs/11822631242)
