@@ -71,14 +71,16 @@ jobs:
         working-directory: task2/infra
 
       - name: Archive Terraform Plan Binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact
+        id: upload-plan-binary
         with:
           name: terraform-plan-binary
           path: task2/terraform_plan/tfplan.binary
           retention-days: 5
 
       - name: Archive Terraform Plan JSON
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact
+        id: upload-plan-json
         with:
           name: terraform-plan-json
           path: task2/terraform_plan/tfplan.json
