@@ -1,7 +1,9 @@
 - Task 1
     - Subtask A
         ```
-        curl -X POST "https://ryx67kyki4.execute-api.eu-west-1.amazonaws.com/Prod/generate/" --data "man eating hotdogs"
+        curl -X POST \
+            "https://ryx67kyki4.execute-api.eu-west-1.amazonaws.com/Prod/generate/" \
+            --data "man eating hotdogs"
         ```
     - Subtask B\
         [![Deploy SAM Application](https://github.com/Slenderman00/exam-pgr301/actions/workflows/deploy_sam_lambda.yaml/badge.svg)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/deploy_sam_lambda.yaml)
@@ -46,8 +48,10 @@
             "me on top of a pyramid"
         ```
 - Task 4\
-    The cloudwatch alert can be tested by, the alarm has been set to one minute:
+    The cloudwatch alert can be tested by running the following command:
     ```
     watch -n 1 'aws sqs send-message --queue-url "https://sqs.eu-west-1.amazonaws.com/244530008913/63-image-generation-queue-prod" --message-body "A man eating hotdogs" --region eu-west-1'
     ```
     The alarm can be found under **63-queue-message-age-prod**
+
+- Task 5\
