@@ -77,7 +77,7 @@ jobs:
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
-            echo "✅ Plan applied" $GITHUB_STEP_SUMMARY
+            echo "✅ Plan applied" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
