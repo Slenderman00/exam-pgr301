@@ -48,7 +48,7 @@
             "me on top of a pyramid"
         ```
 - Task 4\
-    The cloudwatch alert can be tested by running the following command:
+    The cloudwatch alert can be triggered by running the following command:
     ```
     watch -n 1 'aws sqs send-message --queue-url "https://sqs.eu-west-1.amazonaws.com/244530008913/63-image-generation-queue-prod" --message-body "A man eating hotdogs" --region eu-west-1'
     ```
