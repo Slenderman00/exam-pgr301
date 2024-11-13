@@ -40,4 +40,3 @@ image_data = base64.b64decode(base64_image_data)
 
 # Upload the decoded image data to S3
 s3_client.put_object(Bucket=bucket_name, Key=s3_image_path, Body=image_data)
-

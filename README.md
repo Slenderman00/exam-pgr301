@@ -5,3 +5,4 @@
         ```
     - Subtask B\
         [![Deploy SAM Application](https://github.com/Slenderman00/exam-pgr301/actions/workflows/deploy_sam_lambda.yaml/badge.svg)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/deploy_sam_lambda.yaml)
+- Task 2

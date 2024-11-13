@@ -18,7 +18,7 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = false
-s3_prefix = "couch-explorers-63"
+s3_prefix = "63"
 region = "eu-west-1"
 image_repositories = []
 

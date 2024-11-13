@@ -1,3 +1,5 @@
 .venv
 .aws-sam
 .env
+.terraform.lock.hcl
+.terraform
