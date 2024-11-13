@@ -28,4 +28,13 @@
         All images are tagged with the relevant git commit hash both the short and full version.\
         Semantic versioning was considered, but due to the amount of different projects in the same repository it would quickly get confusing
         with multiple sets of versions for the same repository.\
-        With images tagged with hashes making it easy to check out the relevant commit.
+        With images tagged with hashes making it easy to check out the relevant commit.\
+        The image can be tested by running:
+        ```
+        docker run \
+            -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+            -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+            -e SQS_QUEUE_URL=https://sqs.eu-west-1.amazonaws.com/244530008913/63-image-generation-queue-prod \
+            slenderman00/testsqs:sha-be23820 \
+            "me on top of a pyramid"
+        ```
