@@ -87,6 +87,8 @@ jobs:
 
       - name: Job Summary
         run: |
+          ARTIFACT_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts"
+          WORKFLOW_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           echo "## Summary" >> $GITHUB_STEP_SUMMARY
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
@@ -98,3 +100,12 @@ jobs:
             echo "❌ Plan applied" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 [Download Artifacts](${ARTIFACT_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following artifacts were created:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`${ARTIFACT_NAME}\`" >> $GITHUB_STEP_SUMMARY
+          echo "  - tfplan.binary (Terraform plan file)" >> $GITHUB_STEP_SUMMARY
+          echo "  - tfplan.json (JSON format)" >> $GITHUB_STEP_SUMMARY
+          echo "  - formatted_plan.json (Pretty printed JSON)" >> $GITHUB_STEP_SUMMARY
