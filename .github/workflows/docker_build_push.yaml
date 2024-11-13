@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'task3/**'
+      - '.github/workflows/docker_build_push.yaml'
 
 jobs:
   build:
