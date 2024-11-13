@@ -54,12 +54,18 @@ jobs:
 
       - name: Terraform Plan
         run: |
+          if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
+            echo "Running plan for production environment"
+            export TF_VAR_environment="prod"
+          else
+            echo "Running plan for development environment"
+            export TF_VAR_environment="dev"
+          fi
           terraform plan -input=false -no-color -out=../terraform_plan/tfplan.binary
           terraform show -json ../terraform_plan/tfplan.binary > ../terraform_plan/tfplan.json
           cat ../terraform_plan/tfplan.json | jq '.' > ../terraform_plan/formatted_plan.json
         env:
           AWS_REGION: "eu-west-1"
-          TF_VAR_environment: "dev"
           TF_VAR_prefix: "63"
           TF_VAR_bucket_name: "pgr301-couch-explorers"
         working-directory: task2/infra
@@ -89,6 +95,7 @@ jobs:
         run: |
           ARTIFACT_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts"
           WORKFLOW_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          ARTIFACT_NAME="terraform-plan-${GITHUB_SHA}"
           echo "## Summary" >> $GITHUB_STEP_SUMMARY
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
