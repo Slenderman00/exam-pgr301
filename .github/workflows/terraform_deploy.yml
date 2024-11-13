@@ -5,6 +5,7 @@ on:
       - '**'
     paths:
       - 'task2/infra/**'
+      - '.github/workflows/terraform_deploy.yml'
 
 jobs:
   terraform:
@@ -82,9 +83,9 @@ jobs:
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan applied" $GITHUB_STEP_SUMMARY
-            echo "✅  Plan archived" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
             echo "❌ Plan applied" >> $GITHUB_STEP_SUMMARY
-            echo "✅  Plan archived" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           fi
