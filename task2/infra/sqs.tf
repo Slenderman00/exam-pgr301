@@ -48,9 +48,9 @@ resource "aws_cloudwatch_metric_alarm" "queue_message_age" {
   evaluation_periods  = "1"
   metric_name         = "ApproximateAgeOfOldestMessage"
   namespace           = "AWS/SQS"
-  period              = "5" # 5 seconds for testing
+  period              = "60" # 1 minute for testing
   statistic           = "Maximum"
-  threshold           = "5" # 5 seconds for testing
+  threshold           = "60" # 1 minute for testing
   alarm_description   = "Alert when messages are older than 5 minutes"
   alarm_actions       = [aws_sns_topic.queue_alerts.arn]
 
