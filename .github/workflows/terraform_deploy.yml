@@ -67,7 +67,6 @@ jobs:
           name: terraform-plan-${{ github.sha }}
           path: tfplan
           retention-days: 5
-        working-directory: task2/infra
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
