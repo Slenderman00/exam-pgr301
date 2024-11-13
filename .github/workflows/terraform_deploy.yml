@@ -116,5 +116,5 @@ jobs:
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- 🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
-          echo "- 📦 [Binary Plan](${BINARY_URL})" >> $GITHUB_STEP_SUMMARY
-          echo "- 📄 [JSON Plan](${JSON_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 [Download Binary Plan](${BINARY_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📄 [Download JSON Plan](${JSON_URL})" >> $GITHUB_STEP_SUMMARY
