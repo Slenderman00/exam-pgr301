@@ -21,3 +21,9 @@ variable "prefix" {
   type        = string
   default     = "63"
 }
+
+variable "alert_email_address" {
+  description = "Email address for alerts"
+  type        = string
+  default     = "spam@joar.me"
+}
