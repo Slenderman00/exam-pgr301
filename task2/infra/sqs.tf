@@ -9,7 +9,7 @@ resource "aws_sns_topic" "queue_alerts" {
 resource "aws_sns_topic_subscription" "queue_alerts_email" {
   topic_arn = aws_sns_topic.queue_alerts.arn
   protocol  = "email"
-  endpoint  = var.alert_email_address # You'll need to add this variable
+  endpoint  = var.alert_email_address
 }
 
 
@@ -48,9 +48,9 @@ resource "aws_cloudwatch_metric_alarm" "queue_message_age" {
   evaluation_periods  = "1"
   metric_name         = "ApproximateAgeOfOldestMessage"
   namespace           = "AWS/SQS"
-  period              = "60" # 1 minute for testing
+  period              = "60"
   statistic           = "Maximum"
-  threshold           = "60" # 1 minute for testing
+  threshold           = "60"
   alarm_description   = "Alert when messages are older than 5 minutes"
   alarm_actions       = [aws_sns_topic.queue_alerts.arn]
 
