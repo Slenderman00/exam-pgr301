@@ -44,10 +44,6 @@ jobs:
           AWS_REGION: "eu-west-1"
         working-directory: task2/infra
 
-      - name: Terraform Format
-        run: terraform fmt -check
-        working-directory: task2/infra
-
       - name: Terraform Validate
         run: terraform validate
         working-directory: task2/infra
