@@ -129,12 +129,12 @@ jobs:
             echo Enviroment: development >> $GITHUB_STEP_SUMMARY
           fi
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.format.outputs.has_changes }}" = "true" ]; then
             echo "🔄 Terraform files were formatted" >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ No formatting needed" >> $GITHUB_STEP_SUMMARY
           fi
-          echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan applied" >> $GITHUB_STEP_SUMMARY
