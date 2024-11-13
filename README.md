@@ -14,4 +14,5 @@
             --region eu-west-1 
         ```
     - Subtask B\
-    [![Deploy Terraform Infrastructure](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml/badge.svg?branch=master)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml)
+    [![Deploy Terraform Infrastructure](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml/badge.svg?branch=master)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/terraform_deploy.yml)\
+    The terraform plan can be found in the action summary in the form of two artifacts.
