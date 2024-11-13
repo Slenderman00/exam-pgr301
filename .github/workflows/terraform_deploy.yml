@@ -48,6 +48,10 @@ jobs:
         run: terraform validate
         working-directory: task2/infra
 
+      - name: Create terraform_plan Directory
+        run: |
+          mkdir -p task2/terraform_plan
+
       - name: Terraform Plan
         run: |
           terraform plan -input=false -no-color -out=../terraform_plan/tfplan.binary
