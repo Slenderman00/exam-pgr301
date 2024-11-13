@@ -88,7 +88,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master'
-        run: terraform apply -auto-approve task2/terraform_plan/tfplan.binary
+        run: terraform apply -auto-approve ../terraform_plan/tfplan.binary
         env:
           AWS_REGION: "eu-west-1"
         working-directory: task2/infra
