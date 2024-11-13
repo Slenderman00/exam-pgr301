@@ -2,16 +2,16 @@ resource "aws_lambda_function" "image_generator" {
   filename         = data.archive_file.lambda.output_path
   source_code_hash = data.archive_file.lambda.output_base64sha256
   function_name    = "${var.prefix}-image-generator-${var.environment}"
-  role            = aws_iam_role.lambda_role.arn
-  handler         = "lambda_sqs.lambda_handler"
-  runtime         = "python3.12"
-  timeout         = 300
-  memory_size     = 256
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "lambda_sqs.lambda_handler"
+  runtime          = "python3.12"
+  timeout          = 300
+  memory_size      = 256
 
   environment {
     variables = {
       BUCKET_NAME = var.bucket_name,
-      IMAGE_PATH = var.image_path
+      IMAGE_PATH  = var.image_path
     }
   }
 

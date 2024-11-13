@@ -31,6 +31,30 @@ jobs:
         with:
           terraform_version: "1.9.0"
 
+      - name: Format Terraform Code
+        id: format
+        run: |
+          cd task2/infra
+          terraform fmt *.tf
+          cd ../..
+          if git status --porcelain | grep -q .tf; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit Formatted Code
+        if: steps.format.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore: format terraform files"
+          git push
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: task2/infra
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -105,6 +129,12 @@ jobs:
             echo Enviroment: development >> $GITHUB_STEP_SUMMARY
           fi
           echo "Branch: ${GITHUB_REF#refs/heads/}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.format.outputs.has_changes }}" = "true" ]; then
+            echo "🔄 Terraform files were formatted" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No formatting needed" >> $GITHUB_STEP_SUMMARY
+          fi
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo "✅ Plan created" >> $GITHUB_STEP_SUMMARY
             echo "✅ Plan applied" >> $GITHUB_STEP_SUMMARY
@@ -115,6 +145,8 @@ jobs:
             echo "✅ Plan archived" >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- 🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "Download Terraform Plan:" >> $GITHUB_STEP_SUMMARY
           echo "- 📦 [Download Binary Plan](${BINARY_URL})" >> $GITHUB_STEP_SUMMARY
           echo "- 📄 [Download JSON Plan](${JSON_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
