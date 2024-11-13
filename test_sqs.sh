@@ -5,7 +5,7 @@ send_message() {
     echo "Sending message to queue..."
     aws sqs send-message \
         --queue-url "$QUEUE_URL" \
-        --message-body "Generate an image of a majestic mountain landscape with snow peaks" \
+        --message-body "A man eating hotdogs" \
         --region eu-west-1
     
     echo "Message sent!"
