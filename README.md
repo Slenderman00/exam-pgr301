@@ -24,7 +24,14 @@
         The dockerfile can be found in the task3 directory.
     - Subtask B\
         [![Docker Build and Push](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml/badge.svg)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml)\
-        The Dockerhub repository can be found [here.](https://hub.docker.com/repository/docker/slenderman00/testsqs)\
+        The Dockerhub repository can be found [here](https://hub.docker.com/repository/docker/slenderman00/testsqs):
+        ```
+        slenderman00/testsqs
+        ```
+        The sqs url is: 
+        ```
+        https://sqs.eu-west-1.amazonaws.com/244530008913/63-image-generation-queue-prod
+        ```
         All images are tagged with the relevant git commit hash both the short and full version.\
         Semantic versioning was considered, but due to the amount of different projects in the same repository it would quickly get confusing
         with multiple sets of versions for the same repository.\
