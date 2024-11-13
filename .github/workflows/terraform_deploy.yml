@@ -34,14 +34,14 @@ jobs:
       - name: Format Terraform Code
         id: format
         run: |
-        cd task2/infra
-        terraform fmt *.tf
-        cd ../..
-        if git status --porcelain | grep -q .tf; then
-          echo "has_changes=true" >> $GITHUB_OUTPUT
-        else
-          echo "has_changes=false" >> $GITHUB_OUTPUT
-        fi
+          cd task2/infra
+          terraform fmt *.tf
+          cd ../..
+          if git status --porcelain | grep -q .tf; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit Formatted Code
         if: steps.format.outputs.has_changes == 'true'
