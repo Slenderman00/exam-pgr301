@@ -51,6 +51,8 @@ jobs:
           git add .
           git commit -m "chore: format terraform files"
           git push
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: task2/infra
 
       - name: Configure AWS Credentials
