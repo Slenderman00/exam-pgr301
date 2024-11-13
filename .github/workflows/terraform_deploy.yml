@@ -93,8 +93,9 @@ jobs:
 
       - name: Job Summary
         run: |
+          BINARY_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts/${{ steps.upload-plan-binary.outputs.artifact-id }}"
+          JSON_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts/${{ steps.upload-plan-json.outputs.artifact-id }}"
           WORKFLOW_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          ARTIFACT_NAME="terraform-plan-${GITHUB_SHA}"
           echo "## Summary" >> $GITHUB_STEP_SUMMARY
           if [ "${GITHUB_REF}" = "refs/heads/master" ]; then
             echo Enviroment: production >> $GITHUB_STEP_SUMMARY
@@ -113,5 +114,5 @@ jobs:
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- 🔗 [Workflow Run](${WORKFLOW_URL})" >> $GITHUB_STEP_SUMMARY
-          echo "- 📦 [Binary Plan](${{ steps.upload-plan-binary.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
-          echo "- 📄 [JSON Plan](${{ steps.upload-plan-json.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 [Binary Plan](${BINARY_URL})" >> $GITHUB_STEP_SUMMARY
+          echo "- 📄 [JSON Plan](${JSON_URL})" >> $GITHUB_STEP_SUMMARY
