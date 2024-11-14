@@ -38,7 +38,6 @@
         All images are tagged with the relevant git commit hash both the short and full version.\
         Semantic versioning was considered, but due to the amount of different projects in the same repository it would quickly get confusing
         with multiple sets of versions for the same repository.\
-        With images tagged with hashes making it easy to check out the relevant commit.\
         The image can be tested by running:
         ```
         docker run \
