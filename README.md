@@ -52,6 +52,7 @@
     ```
     watch -n 1 'aws sqs send-message --queue-url "https://sqs.eu-west-1.amazonaws.com/244530008913/63-image-generation-queue-prod" --message-body "A man eating hotdogs" --region eu-west-1'
     ```
-    The alarm can be found under **63-queue-message-age-prod**
+    The alarm can be found on the cloudwatch alarm page under **63-queue-message-age-prod**
 
 - Task 5\
+
