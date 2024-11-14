@@ -43,7 +43,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
         Action = [
           "bedrock:InvokeModel"
         ]
-        Resource = ["*"] # You might want to restrict this to specific model ARNs
+        Resource = ["*"] # This allows the use of all models, one might consider restricting it to one or a set of models.
       },
       {
         Effect = "Allow"
