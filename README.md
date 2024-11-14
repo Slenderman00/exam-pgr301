@@ -28,7 +28,7 @@
         [![Docker Build and Push](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml/badge.svg)](https://github.com/Slenderman00/exam-pgr301/actions/workflows/docker_build_push.yaml)\
         The Dockerhub repository can be found [here](https://hub.docker.com/repository/docker/slenderman00/testsqs):
         ```
-        slenderman00/testsqs:sha-be23820
+        slenderman00/testsqs
         ```
         The sqs url is: 
         ```
