@@ -54,5 +54,11 @@
     ```
     The alarm can be found on the cloudwatch alarm page under **63-queue-message-age-prod**
 
-- Task 5\
+- Task 5
+    1. Automation and continual delivery
+    
+    2. Observability
 
+    3. Scalability and cost control
+
+    4. Ownership and responsibility
