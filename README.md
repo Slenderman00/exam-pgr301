@@ -55,10 +55,51 @@
     The alarm can be found on the cloudwatch alarm page under **63-queue-message-age-prod**
 
 - Task 5
-    1. Automation and continual delivery
+    1. Automation and Continuous Delivery
+        - Serverless:
+            Serverless technology integrates seamlessly with CI/CD workflows, 
+            as it allows for independent deployment of each server function. However, 
+            this can lead to a high number of server functions, each requiring its own automation, making monitoring and management more complex.
+        
+        - Microservices:
+            Microservices often necessitate more complex CI/CD pipelines, 
+            typically involving the creation and deployment of a Docker image.
+            While the automation process might be more involved, there are generally fewer microservices than serverless functions.
     
     2. Observability
+        - Serverless:
+            Monitoring tools are vendor dependent, This limits customization to whatever the vendor allows.
+            In this exam we have used AWS cloudwatch. Due to the ability to monitor individual functions one might get
+            a bit more granularity in the metrics that are collected.
+
+        - Microservices:
+            It is more common to implement custom or semi-custom logging solutions.
+            A commonly used data visualization platform is Grafana. This allows
+            for lots more customization in data visualization.
 
     3. Scalability and cost control
+        - Serverless:
+            Assuming it is utilizing the services provided correctly it will scale automatically within
+            the specified parameters automatically. With the more agile scaling you end up paying for only for the processing used.
+
+        - Microservices:
+            Assuming the service is built properly using microservices the scalability should be more or less the same during higher loads.
+            Due to the microservices being allocated to their own virtual machines a bit of granularity is lost in the scaling. This
+            lack of scaling granularity is where most of the cost difference between serverless and microservices lies.
 
     4. Ownership and responsibility
+        - Serverless:
+            Almost all the infrastructure management is offloaded to the service provider, 
+            This reduces the burden on the DevOps team. However a great deal of control over the service is also lost.
+            Using serverless providers that are not Openstack compliant makes the service provider reliant, 
+            thus making it impossible to migrate providers in a short timeframe.
+        
+        - Microservices:
+            This puts the responsibility of managing the whole stack on the DevOps team. It also
+            makes it easier to avoid vendor lock inn by implementing standards like the Openstack standard.
+            This gives the DevOps team a lot more control over the application. With this control a lot more
+            responsibility follows.
+
+    Personally I would implement a hybrid architecture. Using microservices for core services and serverless functions
+    for more generic functionality. This would provide control where needed and offload work from the DevOps team.
+
